@@ -1,0 +1,3 @@
+[submodule "evm-bridge-contracts"]
+	path = evm-bridge-contracts
+	url = ./evm-bridge-contracts
