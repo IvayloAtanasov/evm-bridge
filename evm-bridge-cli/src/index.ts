@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import 'dotenv/config';
 import { Command } from 'commander';
 import claimCommand from './commands/claim';
 import historyCommand from './commands/history';

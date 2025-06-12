@@ -19,6 +19,7 @@ export default function switchNetworkCommand(): Command {
 
       config.current = answer.chain;
       config.target = '';
+      config.tokenSelected = '';
       await storeConfig(config);
 
       console.log(`Network switched to ${answer.chain}. Target network resets.`);

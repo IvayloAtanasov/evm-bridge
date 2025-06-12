@@ -8,11 +8,21 @@ interface ChainConfig {
   chainId: number;
 }
 
+interface TokenConfig {
+  chain: string;
+  address: string;
+  symbol: string;
+}
+
 interface IConfig {
   current: string;
   target: string;
+  tokenSelected: string;
   chains: {
     [chainName: string]: ChainConfig;
+  },
+  tokens: {
+    [tokenName: string]: TokenConfig;
   }
 }
 

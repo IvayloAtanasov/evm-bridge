@@ -1,6 +1,7 @@
 {
   "current": "sepolia",
   "target": "unichainSepolia",
+  "tokenSelected": "",
   "chains": {
     "sepolia": {
       "rpcEnvKey": "RPC_SEPOLIA",
@@ -16,6 +17,13 @@
       "rpcEnvKey": "RPC_UNICHAIN_SEPOLIA",
       "bridgeFactory": "0x",
       "chainId": 1301
+    }
+  },
+  "tokens": {
+    "GM": {
+      "chain": "baseSepolia",
+      "address": "0x",
+      "symbol": "GM"
     }
   }
 }
