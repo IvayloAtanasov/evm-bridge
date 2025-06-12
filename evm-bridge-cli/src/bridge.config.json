@@ -1,0 +1,21 @@
+{
+  "current": "sepolia",
+  "target": "unichainSepolia",
+  "chains": {
+    "sepolia": {
+      "rpcEnvKey": "RPC_SEPOLIA",
+      "bridgeFactory": "0x",
+      "chainId": 11155111
+    },
+    "baseSepolia": {
+      "rpcEnvKey": "RPC_BASE_SEPOLIA",
+      "bridgeFactory": "0x",
+      "chainId": 84532
+    },
+    "unichainSepolia": {
+      "rpcEnvKey": "RPC_UNICHAIN_SEPOLIA",
+      "bridgeFactory": "0x",
+      "chainId": 1301
+    }
+  }
+}
