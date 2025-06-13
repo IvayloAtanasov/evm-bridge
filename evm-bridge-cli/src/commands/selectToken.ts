@@ -2,7 +2,7 @@ import { Command } from 'commander';
 import inquirer from 'inquirer';
 import { loadConfig, storeConfig } from '../config';
 import Relayer from '../relayer';
-import { getWallet } from '../wallet';
+import { getSigner } from '../wallet';
 
 export default function selectTokenCommand(): Command {
   return new Command('select-token')
@@ -14,13 +14,13 @@ export default function selectTokenCommand(): Command {
       const relayer = new Relayer(config.current);
       await relayer.init();
 
-      const wallet = getWallet();
+      const walletAddress = await getSigner().getAddress();
 
       // fill balances
       const tokenBalances = [];
       for (const tokenName of tokenNames) {
         const token = config.tokens[tokenName];
-        const tokenBalance = await relayer.getTokenBalance(token.address, wallet.address);
+        const tokenBalance = await relayer.getTokenBalance(token.address, walletAddress);
 
         tokenBalances.push({
           ...token,

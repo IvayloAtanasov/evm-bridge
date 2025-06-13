@@ -1,6 +1,6 @@
 import { Wallet } from 'ethers';
 
-export function getWallet() {
+export function getSigner() {
   const wallet = new Wallet(process.env.WALLET_PRIVATE_KEY || '');
 
   return wallet;

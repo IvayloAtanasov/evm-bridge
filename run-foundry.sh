@@ -8,6 +8,8 @@ if [ ! -d "$PROJECT_DIR" ]; then
 fi
 
 docker run -it --rm \
+  -p 8545:8545 \
   -v "$PROJECT_DIR":/app \
   -w /app \
+  --name foundry \
   ghcr.io/foundry-rs/foundry bash
