@@ -122,11 +122,6 @@
       "name": "unwrap",
       "inputs": [
           {
-              "name": "user",
-              "type": "address",
-              "internalType": "address"
-          },
-          {
               "name": "wrappedToken",
               "type": "address",
               "internalType": "address"

@@ -18,22 +18,24 @@ export default function claimCommand(): Command {
         {
           type: 'confirm',
           name: 'claimNative',
-          message: 'Claim native (true) or wrapped (false) tokens from target chain?',
+          message: 'Claim native (yes) or wrapped (no) tokens from target chain?',
           default: true, // true = native, false = wrapped
         },
       ]);
 
       const signer = getSigner();
 
-      const wrappedTokenSelected = config.tokens[tokenSelected].wrapped[target];
-      if (!wrappedTokenSelected) {
+      // TODO: better interface as now claim native can really be reached
+      const tokenAddress = config.tokens[tokenSelected].address;
+      const wrappedTokenAddress = config.tokens[tokenSelected].wrapped[target];
+      if (!wrappedTokenAddress) {
         throw new Error('No wrapped token for the chosen token and network');
       }
 
       if (answer.claimNative) {
-        await relayer.claim(signer, tokenSelected, wrappedTokenSelected);
+        await relayer.claim(signer, tokenAddress, wrappedTokenAddress);
       } else {
-        await relayer.claimWrapped(signer, tokenSelected, wrappedTokenSelected);
+        await relayer.claimWrapped(signer, tokenAddress, wrappedTokenAddress);
       }
 
       console.log('Tokens claimed!');

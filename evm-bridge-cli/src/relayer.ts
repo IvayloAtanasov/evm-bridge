@@ -40,7 +40,7 @@ export class Relayer {
   private parseEvent(receipt: any, eventName: string) {
     const iface = new ethers.Interface([
       'event Locked(address indexed sender, address indexed user, address indexed token, uint256 amount, uint256 targetChainId)',
-      'event Unlocked(address indexed sender, address indexed user, address indexed token, uint256 amount, uint256 targetChainId)'
+      'event Unwrapped(address indexed sender, address indexed user, address indexed token, uint256 amount, uint256 targetChainId)'
     ]);
 
     for (const log of receipt.logs) {
@@ -69,7 +69,7 @@ export class Relayer {
     user: string,
     token: string,
     amount: bigint,
-    targetChainId: number
+    targetChainId: bigint
   ) {
     const history = await this.getHistory();
     history.push({
@@ -78,8 +78,8 @@ export class Relayer {
       event,
       user,
       token,
-      amount,
-      targetChainId,
+      amount: amount.toString(),
+      targetChainId: targetChainId.toString(),
       claimed: false
     });
 
@@ -183,15 +183,15 @@ export class Relayer {
         e.event === 'Locked' &&
         e.token === token &&
         e.user === walletAddress &&
-        e.targetChainId === this.chainId &&
+        e.targetChainId === this.chainId.toString() &&
         e.claimed === false
       )
     );
     if (!event) {
-      throw new Error('Locked tokens not found');
+      throw new Error('Locked wrapped tokens not found');
     }
 
-    await this.bridge!.claimWrapped(walletAddress, wrappedToken, event.amount);
+    await this.bridge!.claimWrapped(walletAddress, wrappedToken, BigInt(event.amount));
 
     event.claimed = true;
     await this.storeHistory(history);
@@ -209,18 +209,18 @@ export class Relayer {
     const tx = await this.bridge!.unwrap(tokenAddress, amount, targetChainId);
     const receipt = await tx.wait();
 
-    const eventArgs = this.parseEvent(receipt, 'Unlocked');
+    const eventArgs = this.parseEvent(receipt, 'Unwrapped');
 
     await this.storeHistoryEvent(
       bridgeAddress,
-      'Unlocked',
+      'Unwrapped',
       eventArgs[1], // user
       eventArgs[2], // token
       eventArgs[3], // amount
       eventArgs[4]  // target chain id
     );
 
-    console.log('Stored Unlocked event');
+    console.log('Stored Unwrapped event');
   }
 
   async claim(signer: ethers.Wallet, token: string, wrappedToken: string) {
@@ -231,18 +231,18 @@ export class Relayer {
     const history = await this.getHistory();
     const event = history.find(
       (e: any) => (
-        e.event === 'Unlocked' &&
+        e.event === 'Unwrapped' &&
         e.token === wrappedToken &&
         e.user === walletAddress &&
-        e.targetChainId === this.chainId &&
+        e.targetChainId === this.chainId.toString() &&
         e.claimed === false
       )
     );
     if (!event) {
-      throw new Error('Unlocked tokens not found');
+      throw new Error('Unwrapped tokens not found');
     }
 
-    await this.bridge!.claim(walletAddress, token, event.amount);
+    await this.bridge!.claim(walletAddress, token, BigInt(event.amount));
 
     event.claimed = true;
     await this.storeHistory(history);

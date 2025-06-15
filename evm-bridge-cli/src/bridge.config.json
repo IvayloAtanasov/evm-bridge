@@ -1,7 +1,7 @@
 {
-  "current": "anvil",
-  "target": "unichainSepolia",
-  "tokenSelected": "TEST",
+  "current": "sepolia",
+  "target": "baseSepolia",
+  "tokenSelected": "GM",
   "chains": {
     "anvil": {
       "rpcEnvKey": "RPC_ANVIL",
@@ -10,12 +10,12 @@
     },
     "sepolia": {
       "rpcEnvKey": "RPC_SEPOLIA",
-      "bridgeFactory": "0x",
+      "bridgeFactory": "0x554645F69ac6de11ba3A682f3f76D2221F0BF80C",
       "chainId": 11155111
     },
     "baseSepolia": {
       "rpcEnvKey": "RPC_BASE_SEPOLIA",
-      "bridgeFactory": "0x",
+      "bridgeFactory": "0x96c1Ce4a14Ae25C90A6dA7D86F9a4462d918c8b0",
       "chainId": 84532
     },
     "unichainSepolia": {
@@ -27,7 +27,7 @@
   "tokens": {
     "TEST": {
       "chain": "anvil",
-      "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "address": "0x",
       "symbol": "TEST",
       "wrapped": {
         "baseSepolia": "0x"
@@ -35,8 +35,11 @@
     },
     "GM": {
       "chain": "baseSepolia",
-      "address": "0xa63b0280b3d8131c17798bc545c1fcfd6cd548d5",
-      "symbol": "GM"
+      "address": "0xc59d11A2DC9470895d12fEDce0b81ef58B7a1b55",
+      "symbol": "GM",
+      "wrapped": {
+        "sepolia": "0x7cAd58b3C78D3b0b8B57B7A8654899a7Bf526ef6"
+      }
     }
   }
 }

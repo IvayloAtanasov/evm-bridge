@@ -18,6 +18,7 @@ export default function returnCommand(): Command {
       if (!targetChain) {
         throw new Error('You need to select target chain before bridging');
       }
+      const wrappedTokenAddress = token.wrapped[config.target];
 
       const relayer = new Relayer(config.target);
       await relayer.init();
@@ -25,7 +26,7 @@ export default function returnCommand(): Command {
       const amountWei = ethers.parseUnits(amount, 6);
 
       await relayer.unwrap(
-        token.address,
+        wrappedTokenAddress,
         amountWei,
         config.chains[config.current].chainId
       );
