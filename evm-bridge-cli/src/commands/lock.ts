@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import { ethers } from 'ethers';
-import { loadConfig, storeConfig } from '../config';
+import { loadConfig } from '../config';
 import Relayer from '../relayer';
 import { getSigner } from '../wallet';
 
@@ -25,15 +25,11 @@ export default function lockCommand(): Command {
 
       const signer = getSigner();
 
-      const currentChain = config.chains[config.current];
-      const bridgeAddress = currentChain.bridgeFactory;
-
       const amountWei = ethers.parseUnits(amount, 6);
 
       await relayer.lockWithPermit(
         token.address,
         signer,
-        bridgeAddress,
         amountWei,
         targetChain.chainId
       );

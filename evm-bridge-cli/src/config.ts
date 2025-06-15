@@ -12,6 +12,9 @@ interface TokenConfig {
   chain: string;
   address: string;
   symbol: string;
+  wrapped: {
+    [chainName: string]: string;
+  }
 }
 
 interface IConfig {
