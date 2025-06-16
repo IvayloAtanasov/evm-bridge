@@ -6,13 +6,10 @@ import { getSigner } from '../wallet';
 
 export default function claimCommand(): Command {
   return new Command('claim')
-    .description('Claim tokens on target chain')
+    .description('Claim tokens on current chain or wrapped tokens on target chain')
     .action(async () => {
       const config = await loadConfig();
-      const { tokenSelected, target } = config;
-
-      const relayer = new Relayer(target);
-      await relayer.init();
+      const { tokenSelected, current, target } = config;
 
       const answer = await inquirer.prompt([
         {
@@ -25,7 +22,6 @@ export default function claimCommand(): Command {
 
       const signer = getSigner();
 
-      // TODO: better interface as now claim native can really be reached
       const tokenAddress = config.tokens[tokenSelected].address;
       const wrappedTokenAddress = config.tokens[tokenSelected].wrapped[target];
       if (!wrappedTokenAddress) {
@@ -33,8 +29,12 @@ export default function claimCommand(): Command {
       }
 
       if (answer.claimNative) {
+        const relayer = new Relayer(current);
+        await relayer.init();
         await relayer.claim(signer, tokenAddress, wrappedTokenAddress);
       } else {
+        const relayer = new Relayer(target);
+        await relayer.init();
         await relayer.claimWrapped(signer, tokenAddress, wrappedTokenAddress);
       }
 
