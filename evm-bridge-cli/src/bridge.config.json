@@ -1,6 +1,6 @@
 {
-  "current": "sepolia",
-  "target": "baseSepolia",
+  "current": "baseSepolia",
+  "target": "unichainSepolia",
   "tokenSelected": "GM",
   "chains": {
     "anvil": {
@@ -20,7 +20,7 @@
     },
     "unichainSepolia": {
       "rpcEnvKey": "RPC_UNICHAIN_SEPOLIA",
-      "bridgeFactory": "0x",
+      "bridgeFactory": "0x2aFa7663137618251C31cb58A72F3B0E2543A2e5",
       "chainId": 1301
     }
   },
@@ -38,7 +38,8 @@
       "address": "0xc59d11A2DC9470895d12fEDce0b81ef58B7a1b55",
       "symbol": "GM",
       "wrapped": {
-        "sepolia": "0x7cAd58b3C78D3b0b8B57B7A8654899a7Bf526ef6"
+        "sepolia": "0x7cAd58b3C78D3b0b8B57B7A8654899a7Bf526ef6",
+        "unichainSepolia": "0x554645F69ac6de11ba3A682f3f76D2221F0BF80C"
       }
     }
   }

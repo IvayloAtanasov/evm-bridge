@@ -29,7 +29,8 @@ export default function historyCommand(): Command {
           user: shortenAddress(h.user),
           token: shortenAddress(h.token),
           amount: formatUnits(h.amount, 6),
-          targetChainId: h.targetChainId
+          targetChainId: h.targetChainId,
+          claimed: h.claimed
         }))
       );
     });
